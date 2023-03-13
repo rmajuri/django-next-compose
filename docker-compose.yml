@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  frontend:
+    container_name: frontend
+    restart: always
+    build:
+      context: .
+      dockerfile: ./compose/frontend/Dockerfile
+    command: npm run dev
+    env_file:
+      - ./next/.env
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    links:
+      - backend
+    volumes:
+      - ./next:/frontend
+      - ./next/node_modules:/frontend/node_modules
+      - ./next/.next:/frontend/.next
+  backend:
+    restart: unless-stopped
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./compose/backend/Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file:
+      - ./django/.env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    links:
+      - db
+  db:
+    restart: always
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+  nginx:
+    build:
+      context: ./compose/nginx/
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    links:
+      - backend
+      - frontend
+volumes:
+  postgres_data:
