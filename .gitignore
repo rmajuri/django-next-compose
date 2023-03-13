@@ -16,7 +16,7 @@
 .next/build
 
 # misc
-./next/.DS_Store
+.DS_Store
 *.pem
 
 # debug
