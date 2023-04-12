@@ -2,8 +2,7 @@ FROM node:alpine
 
 WORKDIR /frontend
 
-COPY ../next/package.json .
-RUN npm i
+COPY ../../next .
+RUN rm -rf package-lock.json
 
-COPY ../next .
 

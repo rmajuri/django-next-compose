@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /backend
 
-COPY ../django/requirements.txt .
+COPY ../../django/requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY ../django .
+COPY ../../django .
