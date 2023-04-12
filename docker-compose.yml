@@ -31,14 +31,16 @@ services:
     env_file:
       - ./django/.env
     depends_on:
-      - db
+      - pg-db
     ports:
       - "8000:8000"
     links:
-      - db
-  db:
+      - pg-db
+  pg-db:
     restart: always
     image: postgres:15
+    ports:
+        - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
