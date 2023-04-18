@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class Creator(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -21,6 +22,7 @@ class Post(models.Model):
     creator = models.ForeignKey('app.Creator', on_delete=models.CASCADE)
     title = models.CharField(max_length=200, blank=True, null=True)
     description = models.CharField(max_length=200, blank=True, null=True)
+    content= RichTextField(blank=True, null=True)
     image = models.CharField(max_length=200, blank=True, null=True)
     video = models.CharField(max_length=200, blank=True, null=True)
     audio = models.CharField(max_length=200, blank=True, null=True)
