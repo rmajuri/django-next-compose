@@ -38,7 +38,7 @@ services:
       - pg-db
     volumes:
       - ./django:/backend
-      - ./django/venv:/backend/venv
+      - ./django/.venv:/backend/.venv
   pg-db:
     restart: always
     image: postgres:15
