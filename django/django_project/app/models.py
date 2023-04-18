@@ -31,3 +31,4 @@ class Post(models.Model):
     likes = models.IntegerField(blank=True, null=True)
     comments = models.IntegerField(blank=True, null=True)
     shares = models.IntegerField(blank=True, null=True)
+    
